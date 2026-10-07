@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+/** Adds `is-visible` to `.reveal` elements as they scroll into view. */
 export function useReveal(): void {
   useEffect(() => {
     const targets = document.querySelectorAll<HTMLElement>(".reveal");

@@ -22,10 +22,9 @@ function seoFiles(siteUrl: string): Plugin {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
-  const siteUrl = (
-    env.VITE_SITE_URL || "https://shervangharibzade.github.io/gitpage/"
-  ).replace(/\/?$/, "/");
+  const siteUrl = (env.VITE_SITE_URL || "https://shervangharibzade.github.io/gitpage/").replace(/\/?$/, "/");
   return {
+    // Relative base: assets resolve whether deployed at a user root or a /repo/ sub-path.
     base: "./",
     plugins: [
       react(),
