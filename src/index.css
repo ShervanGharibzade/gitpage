@@ -1,80 +1,83 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Sixtyfour&family=Ubuntu:wght@300;400;500;700&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Ubuntu:wght@300;400;500;700&display=swap");
-
-* {
-  font-family: "Nunito", sans-serif;
+:root {
+  --bg: 12 14 18;
+  --surface: 19 22 28;
+  --line: 40 45 55;
+  --fg: 232 234 238;
+  --muted: 152 160 172;
+  --accent: 94 234 212;
+  color-scheme: dark;
 }
 
-*::-webkit-scrollbar {
-  width: 12px; /* Scrollbar width */
-}
-
-*::-webkit-scrollbar-track {
-  background: #1e1e2f; /* Track color */
-  border-radius: 10px; /* Optional: rounded corners */
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #0f62c2; /* Thumb color */
-  border-radius: 10px; /* Optional: rounded corners */
-  border: 3px solid #1e1e2f; /* Creates padding around the thumb */
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: #707070; /* Slightly lighter thumb on hover */
-}
-
-*::-webkit-scrollbar-thumb:active {
-  background-color: #8b8b8b; /* Even darker thumb when clicked */
-}
-
-body {
-  background: radial-gradient(
-    circle,
-    rgba(15, 15, 30, 1) 30%,
-    rgb(10, 17, 70) 60%,
-    rgba(0, 5, 25, 1) 100%
-  );
-  overflow: hidden;
-  background-size: 200% 200%; /* Makes the animation smooth by scaling the background */
-  animation: darkBluePulse 8s infinite alternate,
-    darkBlueShift 10s ease-in-out infinite;
-}
-
-@keyframes darkBluePulse {
-  0% {
-    background-size: 100% 100%; /* Normal size */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
   }
-  50% {
-    background-size: 150% 150%; /* Scaled-up gradient */
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    overflow-x: hidden;
   }
-  100% {
-    background-size: 100% 100%; /* Back to normal size */
+  ::selection {
+    background: rgb(var(--accent) / 0.28);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 }
 
-@keyframes darkBlueShift {
-  0% {
-    background-position: 0% 0%; /* Gradient starts at the top-left */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
   }
-  20% {
-    background-position: 50% 50%; /* Gradient shifts to the center */
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.14em] text-accent;
   }
-  40% {
-    background-position: 100% 100%; /* Gradient moves to the bottom-right */
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors;
   }
-  60% {
-    background-position: 100% 100%; /* Gradient moves to the bottom-right */
+  .btn-primary {
+    @apply btn bg-accent text-bg hover:bg-accent/85;
   }
-  80% {
-    background-position: 50% 50%; /* Gradient shifts to the center */
+  .btn-ghost {
+    @apply btn border border-line text-fg hover:border-muted/60 hover:bg-surface;
   }
-  100% {
-    background-position: 0% 0%; /* Gradient starts at the top-left */
+  .chip {
+    @apply inline-flex items-center rounded-md border border-line bg-surface px-2 py-1 font-mono text-xs text-muted;
   }
+  .card {
+    @apply rounded-xl border border-line bg-surface;
+  }
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
